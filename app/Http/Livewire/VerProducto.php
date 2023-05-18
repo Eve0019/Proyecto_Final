@@ -30,18 +30,6 @@ class VerProducto extends Component
         $this->crearModal = true;
         $this->cantidad = 1;
     }
-    public function aumentar()
-    {
-        if($this->cantidad <= 20){
-            $this->cantidad++;
-        }
-    }
-    public function disminuir()
-    {
-        if($this->cantidad > 1){
-            $this->cantidad--;
-        }
-    }
 
     public function agregarCarrito()
     {

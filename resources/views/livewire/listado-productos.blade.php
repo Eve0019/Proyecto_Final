@@ -4,16 +4,18 @@
         @foreach ($productos as $producto)
         <div class="w-full max-w-sm mx-auto overflow-hidden border border-black">
             <div class="h-30 w-full justify-end object-contain">
-                <a href="/LinkAProducto">
+                <a wire:click="mostrarProducto({{ $producto->id }})">
                     <img alt="Imagen de {{ $producto->nombre }}" src="{{ $producto->imagen ? asset('storage/'. $producto->imagen) : 'https://random.imagecdn.app/500/500' }}">
                 </a>
                 <div class="flex justify-between mt-5 mx-2">
                     <x-button wire:click="mostrarProducto({{ $producto->id }})">
                         Detalles
                     </x-button>
+                    @role('admin')
                     <x-button wire:click="$emit('editarProducto',{{ $producto->id }})" class=" bg-yellow-500">
                         Editar
                     </x-button>
+                    @endrole
                 </div>
             </div>
             {{-- <div class="mb-4 lg:mt-48 mt-12 lg:pt-8"> --}}

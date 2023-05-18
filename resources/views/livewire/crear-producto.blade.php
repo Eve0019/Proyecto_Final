@@ -16,7 +16,7 @@
                 @csrf
             <div class="mb-6">
                 <label for="name" class="block mb-2 text-sm font-medium text-black-700">Nombre *</label>
-                <input type="text" wire:model.defer="nombre" placeholder="Nombre del Producto" class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" >
+                <input type="text" wire:model.defer="nombre" placeholder="Nombre del Producto" class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" required>
 
                 @error('nombre')
                 <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Error: </span> {{$message}}!</p>
@@ -25,7 +25,7 @@
 
               <div class="mb-6">
                 <label for="price" class="block mb-2 text-sm font-medium text-black-700">Precio *</label>
-                <input type="number" wire:model.defer="precio" placeholder="Precio del Producto" class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">
+                <input type="number" wire:model.defer="precio" placeholder="Precio del Producto" class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" required>
 
                 @error('precio')
                 <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oops!</span> {{$message}}!</p>
@@ -37,7 +37,6 @@
                 <select wire:model.defer="categoria" class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" required>
                     <option value="">Elegir...</option>
                     @foreach ($categorias as $cat)
-                    {{ Debugbar::info($editando,$categoria,$cat) }}
                     <option value="{{ $cat }}" {{ ($editando && ($categoria == $cat)) ? 'selected' : '' }}>{{ Str::ucfirst($cat) }}</option>    
                     @endforeach
                     {{-- <option {{ $producto->categoria == 'acondicionador' ? 'selected' : '' }} value="acondicionador" > Acondicionador</option>
@@ -51,7 +50,7 @@
               </div>
               <div class="mb-6">
                 <label for="description" class="block mb-2 text-sm font-medium text-black-700">Descripción *</label>
-                <textarea rows="4" class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" placeholder="Descripción del Producto..." wire:model.defer="descripcion"></textarea>
+                <textarea rows="4" class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" placeholder="Descripción del Producto..." wire:model.defer="descripcion" required minlength="3"></textarea>
                 @error('descripcion')
                 <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oops!</span> {{$message}}!</p>
                 @enderror
@@ -66,28 +65,6 @@
             @elseif($imagenEditando)
                 <img src="{{ asset('storage/'. $imagenEditando) }}" alt="Imagen de {{ $nombre }}">
             @endif
-            {{-- <div class="mb-6">
-              <label for="stock" class="block mb-2 text-sm font-medium text-black-700">Stock</label>
-              <input type="number" type="number" name="stock" id="stock" value="{{old('stock') ?? ''}}" placeholder="Product Stock" min="0" max="999" required class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">
-
-              @error('stock')
-                <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oops!</span> {{$message}}!</p>
-                @enderror
-            </div> --}}
-
-            {{-- <div class="mb-6">  
-            <label class="block mb-2 text-sm font-medium text-black-700" for="image">Foto producto</label>
-            <input class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" id="image" type="file" name="image">
-            <div class="mt-1 text-sm text-gray-700 ">Trata que la imagen tenga relación 1:1</div>
-
-
-              @error('image')
-                <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oops!</span> {{$message}}!</p>
-                @enderror
-            </div> --}}
-        
-
-            {{-- <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Crear</button> --}}
             
         </form>
         
