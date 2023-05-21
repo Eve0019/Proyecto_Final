@@ -14,12 +14,13 @@ return new class extends Migration
         Schema::create('ordenes', function (Blueprint $table) {
             $table->id();
             $table->string('tipo',25)->nullable(); //Recoger en Casa o Tienda
-            $table->string('direccion',100)->nullable();
+            /* $table->string('direccion',100)->nullable(); */
             $table->date('fecha')->nullable(); //Fecha estimada entrega
-            $table->string('estado',25); //Si ya tienen el producto o no
+            $table->string('estado',25)->default('Procesando Pedido'); //Si ya tienen el producto o no
             $table->float('total');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

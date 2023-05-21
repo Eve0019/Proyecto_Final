@@ -33,7 +33,7 @@
                             <div x-data="{
                                 cantidad: @entangle('cantidad').defer,
                                 aumentar(){
-                                    if(this.cantidad < 20)
+                                    if(this.cantidad < 50)
                                         this.cantidad++
                                 },
                                 disminuir(){
@@ -44,7 +44,7 @@
 
                             }" class="flex items-center mt-4">
                                 <button @click="disminuir"
-                                    class="border border-black w-36 h-12 text-gray-500 focus:outline-none focus:text-gray-600">
+                                    class="border border-black w-36 h-12 text-gray-500 focus:outline-none focus:text-gray-600 hover:bg-sky-300">
                                     <div class="flex justify-center">
                                         {{-- Minus Icon --}}
                                         <x-heroicon-o-minus class="w-6 h-6"/>
@@ -52,7 +52,7 @@
                                 </button>
                                 <span class="text-2xl mx-2" ref={countRef} x-text="cantidad"></span>
                                 <button @click="aumentar"
-                                    class="border border-black w-36 h-12 text-gray-500 focus:outline-none focus:text-gray-600">
+                                    class="border border-black w-36 h-12 text-gray-500 focus:outline-none focus:text-gray-600 hover:bg-sky-300">
                                     <div class="flex justify-center">
                                         {{-- Add Icon --}}
                                         <x-heroicon-o-plus class="w-6 h-6"/>
@@ -64,7 +64,7 @@
                         @endrole
                         <div class="mt-12 flex flex-row justify-between ">
                             @role('user')
-                            <button class="border p-2 mb-8 border-black shadow-offset-lime w-2/3 font-bold hover:bg-sky-500" wire:click="agregarCarrito">    
+                            <button class="border p-2 mb-8 border-black shadow-offset-lime w-2/3 font-bold hover:bg-sky-300" wire:click="agregarCarrito">    
                                 Agregar al Carrito
                             </button>
                             @else

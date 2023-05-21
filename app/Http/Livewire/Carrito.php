@@ -8,7 +8,7 @@ use \Illuminate\Database\Eloquent\Collection;
 
 class Carrito extends Component
 {
-    public $idProductos;
+    public $productosId;
     public $productosCarrito;
     public $cantidadProductos = 0;
     public $arrayCantidad;
@@ -18,9 +18,10 @@ class Carrito extends Component
         $this->productosCarrito = new \Illuminate\Database\Eloquent\Collection();
         $this->cantidadProductos = 0;
         $this->arrayCantidad = [];
+        $this->productosId = [];
     }
 
-    protected $listeners = ['agregarAlCarrito'];
+    protected $listeners = ['agregarAlCarrito','limpiarCarrito'];
 
     public function agregarAlCarrito($id,$cantidad){
         if(!$this->productosCarrito->contains($id)){
@@ -29,6 +30,7 @@ class Carrito extends Component
             $this->productosCarrito->push($producto);
             $this->cantidadProductos++;
             array_push($this->arrayCantidad,$cantidad);
+            array_push($this->productosId,$id);
             $this->dispatchBrowserEvent('toast',['title'=> 'Producto Agregado','message'=>'El producto se agregó al carrito']);
         }else{
             $this->dispatchBrowserEvent('toast',['title'=> 'Producto Repetido','message'=>'El producto ya está en el carrito','success'=>'false']);
@@ -41,8 +43,16 @@ class Carrito extends Component
         });
         $this->productosCarrito = $this->productosCarrito->except([$id]);
         array_splice($this->arrayCantidad, $productIndex,1);
+        array_splice($this->productosId, $productIndex,1);
         $this->cantidadProductos--;
         $this->dispatchBrowserEvent('toast',['title'=> 'Producto Removido','message'=>'El producto se removió del carrito']);
+    }
+
+    public function limpiarCarrito(){
+        $this->productosCarrito = new \Illuminate\Database\Eloquent\Collection();
+        $this->cantidadProductos = 0;
+        $this->arrayCantidad = [];
+        $this->productosId = [];
     }
 
     public function actualizarCantidad($id,$cantidad){
@@ -59,10 +69,14 @@ class Carrito extends Component
     }
 
     public function aumentar($index){
-        $this->arrayCantidad[$index]++;
+        if($this->arrayCantidad[$index] < 50){
+            $this->arrayCantidad[$index]++;
+        }
     }
     public function disminuir($index){
-        $this->arrayCantidad[$index]--;
+        if($this->arrayCantidad[$index] > 1){
+            $this->arrayCantidad[$index]--;
+        }
     }
 
     public function cerrarModalVer(){

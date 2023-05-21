@@ -19,7 +19,7 @@
     </head>
     <body class="font-sans antialiased">
         <x-banner />
-        <div x-data="toastNotification()" @toast.window="toastInfo($event.detail.title,$event.detail.message,$event.detail.success)">
+        <div id="toastNoti" x-data="toastNotification()" @toast.window="toastInfo($event.detail.title,$event.detail.message,$event.detail.success)">
             <div 
                 x-show="open"
                 class="w-96 p-4 rounded h-32 fixed bottom-4 right-4 transform-gpu transition-transform duration-400 ease z-[100]"
@@ -76,7 +76,7 @@
                     toastInfo(title, message, success = true){
                         this.title = title;
                         this.message = message;
-                        if(success == 'false'){
+                        if(success == 'false' || success == false){
                             this.success = false;
                         }else{
                             this.success = true;
@@ -86,5 +86,6 @@
                 }
             }
       </script>
+      @stack('scripts')
     </body>
 </html>
